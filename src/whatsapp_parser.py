@@ -26,7 +26,7 @@ def parse_line(line: str, datetime_format: str) -> Tuple[Optional[datetime], str
 
     line_elements = parse.parse("[{date}, {time}] {actor}: {text}", line)
     if line_elements:
-        print(f"line_elements: date: {date}, time: {time}, actor: {actor}, text: {text}")
+        print(f"line_elements: date: {line_elements['date']}, time: {line_elements['time']}, actor: {line_elements['actor']}, text: {line_elements['text']}")
         message_datetime = f"{line_elements['date']}, {line_elements['time']}"  # e.g. "31/12/19, 20:02"
         print(f"applying .strptime() to: {message_datetime}, expecting datetime format {datetime_format}")
         timestamp = datetime.strptime(message_datetime, datetime_format)
