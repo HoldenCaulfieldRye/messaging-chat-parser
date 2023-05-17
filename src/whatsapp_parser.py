@@ -9,6 +9,8 @@ from typing import List, Tuple, Optional
 from os.path import join, basename, normpath
 
 sys.path.append("./")
+# may need to append locally cloned repo messaging-chat-parser location to PYTHONPATH
+# sys.path.insert(0, "/Users/adalyac/git/messaging-chat-parser")
 from src.utils.utils import get_dir_files, split_in_sessions
 
 USER_TAG = "[me]"
@@ -22,7 +24,7 @@ def parse_line(line: str, datetime_format: str) -> Tuple[Optional[datetime], str
     actor = 'invalid'
     text = ''
 
-    line_elements = parse.parse("{date}, {time} - {actor}: {text}", line)
+    line_elements = parse.parse("[{date}, {time}] {actor}: {text}", line)
     if line_elements:
         message_datetime = f"{line_elements['date']}, {line_elements['time']}"  # e.g. "31/12/19, 20:02"
         timestamp = datetime.strptime(message_datetime, datetime_format)
