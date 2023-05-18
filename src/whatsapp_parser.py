@@ -35,8 +35,9 @@ def parse_line(line: str, datetime_format: str) -> Tuple[Optional[datetime], str
             line_elements = parse.parse("[{time}, {date}] {actor}: {text}", line)
             print(f"switching to line_elements: date: {line_elements['date']}, time: {line_elements['time']}, actor: {line_elements['actor']}, text: {line_elements['text']}")   
             message_datetime = f"{line_elements['date']}, {line_elements['time']}"  
-            print(f"applying .strptime() to: {message_datetime}, expecting datetime format {datetime_format}")
-            timestamp = datetime.strptime(message_datetime, datetime_format)
+            exception_datetime_format = "%m/%d/%y, %H:%M"
+            print(f"applying .strptime() to: {message_datetime}, expecting datetime format {exception_datetime_format}") # %m/%d/%y, %H:%M
+            timestamp = datetime.strptime(message_datetime, exception_datetime_format) # %m/%d/%y, %H:%M:%S
         actor = line_elements['actor']
         text = line_elements['text']
     return timestamp, actor, text
