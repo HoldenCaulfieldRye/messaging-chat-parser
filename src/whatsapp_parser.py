@@ -69,7 +69,7 @@ def parse_chat(file_path: str,
         lines = f.readlines()
         t_last = None
         for line in lines:
-            print(f"parsing {line}")
+            # print(f"parsing {line}")
             t_current, actor, text = parse_line(line, datetime_format)
 
             if actor == 'invalid':
