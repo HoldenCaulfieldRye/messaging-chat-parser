@@ -43,7 +43,11 @@ def parse_line(line: str, datetime_format: str) -> Tuple[Optional[datetime], str
 
             except ValueError: 
                 exception_datetime_format = "%m/%d/%Y, %H:%M"
-                timestamp = datetime.strptime(message_datetime, exception_datetime_format) 
+                try: timestamp = datetime.strptime(message_datetime, exception_datetime_format) 
+
+                except ValueError: 
+                    exception_datetime_format = "%m/%d/%Y, %I:%M %p"
+                    timestamp = datetime.strptime(message_datetime, exception_datetime_format) 
 
         actor = line_elements['actor']
         text = line_elements['text']
