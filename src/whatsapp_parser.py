@@ -26,17 +26,17 @@ def parse_line(line: str, datetime_format: str) -> Tuple[Optional[datetime], str
 
     line_elements = parse.parse("[{date}, {time}] {actor}: {text}", line)
     if line_elements:
-        print(f"line_elements: date: {line_elements['date']}, time: {line_elements['time']}, actor: {line_elements['actor']}, text: {line_elements['text']}")
+        # print(f"line_elements: date: {line_elements['date']}, time: {line_elements['time']}, actor: {line_elements['actor']}, text: {line_elements['text']}")
         message_datetime = f"{line_elements['date']}, {line_elements['time']}"  # e.g. "31/12/19, 20:02"
-        print(f"applying .strptime() to: {message_datetime}, expecting datetime format {datetime_format}")
+        # print(f"applying .strptime() to: {message_datetime}, expecting datetime format {datetime_format}")
         try: 
             timestamp = datetime.strptime(message_datetime, datetime_format)
         except ValueError: 
             line_elements = parse.parse("[{time}, {date}] {actor}: {text}", line)
-            print(f"switching to line_elements: date: {line_elements['date']}, time: {line_elements['time']}, actor: {line_elements['actor']}, text: {line_elements['text']}")   
+            # print(f"switching to line_elements: date: {line_elements['date']}, time: {line_elements['time']}, actor: {line_elements['actor']}, text: {line_elements['text']}")   
             message_datetime = f"{line_elements['date']}, {line_elements['time']}"  
             exception_datetime_format = "%d/%m/%Y, %H:%M"
-            print(f"applying .strptime() to: {message_datetime}, expecting datetime format {exception_datetime_format}") 
+            # print(f"applying .strptime() to: {message_datetime}, expecting datetime format {exception_datetime_format}") 
             timestamp = datetime.strptime(message_datetime, exception_datetime_format) 
         actor = line_elements['actor']
         text = line_elements['text']
